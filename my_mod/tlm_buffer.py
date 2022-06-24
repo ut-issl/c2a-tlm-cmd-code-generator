@@ -8,7 +8,18 @@ import sys
 # from collections import OrderedDict
 # import pprint
 
-INVALID_START_CHARS = [str(0), str(1), str(2), str(3), str(4), str(5), str(6), str(7), str(8), str(9)]
+INVALID_START_CHARS = [
+    str(0),
+    str(1),
+    str(2),
+    str(3),
+    str(4),
+    str(5),
+    str(6),
+    str(7),
+    str(8),
+    str(9),
+]
 
 
 def GenerateTlmBuffer(settings, other_obc_dbs):
