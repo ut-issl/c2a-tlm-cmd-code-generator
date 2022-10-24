@@ -1,5 +1,6 @@
 {
   "c2a_root_dir" : "../../c2a/src/",
+  "db_path" : "../../c2a/database/",
   "db_prefix" : "SAMPLE_MOBC",
   "tlm_id_range" : ["0x00", "0x100"],
   "input_file_encoding" : "utf-8",
