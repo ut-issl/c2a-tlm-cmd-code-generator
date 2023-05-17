@@ -1,3 +1,15 @@
+[tool.poetry]
+name = "c2a-tlm-cmd-code-generator"
+version = "1.8.0"
+description = "TlmCmdDBからC2Aのコードを生成するためのスクリプト "
+
+authors = []
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
 [tool.black]
 target-version = ['py38']
 line-length = 100
