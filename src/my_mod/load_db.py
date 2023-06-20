@@ -44,9 +44,7 @@ def LoadCmdCSV_(cmd_db_path, db_prefix, encoding):
 
 
 def LoadTlmDb(c2a_root_dir, settings):
-    tlm_db_path = (
-        c2a_root_dir + r"src_user/Settings/TlmCmd/DataBase/TLM_DB/calced_data/"
-    )
+    tlm_db_path = c2a_root_dir + r"src_user/Settings/TlmCmd/DataBase/TLM_DB/calced_data/"
 
     tlm_db = LoadTlmCSV_(
         tlm_db_path,

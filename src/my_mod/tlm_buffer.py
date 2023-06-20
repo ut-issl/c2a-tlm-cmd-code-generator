@@ -337,9 +337,7 @@ def GenerateTlmBuffer(c2a_root_dir, settings, other_obc_dbs):
         body_c += "\n"
 
         output_file_path = (
-            c2a_root_dir
-            + r"src_user/Drivers/"
-            + settings["other_obc_data"][i]["driver_path"]
+            c2a_root_dir + r"src_user/Drivers/" + settings["other_obc_data"][i]["driver_path"]
         )
         OutputTlmBufferC_(
             output_file_path + obc_name.lower() + "_telemetry_buffer.c", obc_name, body_c, settings
