@@ -12,8 +12,15 @@ def GenerateTlmDef(c2a_root_dir, settings, tlm_db):
 
     DATA_START_ROW = 8
 
-    body_c = ""
+    # generate header
     body_h = ""
+    for tlm in tlm_db:
+        body_h += "  Tlm_CODE_" + tlm["tlm_name"].upper() + " = " + tlm["tlm_id"] + ",\n"
+
+    OutputTlmDefH_(output_file_path + output_file_name_base + ".h", body_h, settings)
+
+    # generate impl
+    body_c = ""
 
     # "static TF_TLM_FUNC_ACK OBC_(uint8_t* packet, uint16_t* len, uint16_t max_len);"
     # "  OBC_ID = 0x00,"
@@ -23,7 +30,6 @@ def GenerateTlmDef(c2a_root_dir, settings, tlm_db):
             + tlm["tlm_name"].upper()
             + "_(uint8_t* packet, uint16_t* len, uint16_t max_len);\n"
         )
-        body_h += "  Tlm_CODE_" + tlm["tlm_name"].upper() + " = " + tlm["tlm_id"] + ",\n"
 
     body_c += "\n"
     body_c += "void TF_load_tlm_table(TF_TlmInfo tlm_table[TF_MAX_TLMS])\n"
@@ -115,7 +121,6 @@ def GenerateTlmDef(c2a_root_dir, settings, tlm_db):
         body_c += "}\n"
 
     OutputTlmDefC_(output_file_path + output_file_name_base + ".c", body_c, settings)
-    OutputTlmDefH_(output_file_path + output_file_name_base + ".h", body_h, settings)
 
 
 def GenerateOtherObcTlmDef(c2a_root_dir, settings, other_obc_dbs):
