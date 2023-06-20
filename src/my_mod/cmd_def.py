@@ -14,9 +14,8 @@ def GenerateCmdDef(c2a_root_dir, settings, sgc_db):
 
     DATA_SART_ROW = 3
 
-    body_c = ""
+    # generate header
     body_h = ""
-    # "  cmd_table[Cmd_CODE_NOP].cmd_func = Cmd_NOP;"
     # "  Cmd_CODE_NOP = 0x0000,"
     for i in range(DATA_SART_ROW, len(sgc_db)):
         comment = sgc_db[i][0]
@@ -30,8 +29,26 @@ def GenerateCmdDef(c2a_root_dir, settings, sgc_db):
         cmd_name, cmd_code = GetCmdNameAndCmdCode_(name, settings["is_cmd_prefixed_in_db"])
         # print(cmd_name)
         # print(cmd_code)
-        body_c += "  cmd_table[" + cmd_code + "].cmd_func = " + cmd_name + ";\n"
         body_h += "  " + cmd_code + " = " + cmd_id + ",\n"
+
+    OutputCmdDefH_(output_file_path + output_file_name_base + ".h", body_h, settings)
+
+    # generate impl
+    body_c = ""
+    # "  cmd_table[Cmd_CODE_NOP].cmd_func = Cmd_NOP;"
+    for i in range(DATA_SART_ROW, len(sgc_db)):
+        comment = sgc_db[i][0]
+        name = sgc_db[i][1]
+        cmd_id = sgc_db[i][3]
+        if comment == "" and name == "":  # CommentもNameも空白なら打ち切り
+            break
+        if comment != "":  # Comment
+            continue
+
+        cmd_name, cmd_code = GetCmdNameAndCmdCode_(name, settings["is_cmd_prefixed_in_db"])
+        # print(cmd_name)
+        # print(cmd_code)
+        body_c += "  cmd_table[" + cmd_code + "].cmd_func = " + cmd_name + ";\n"
 
     body_c += "\n"
     for i in range(DATA_SART_ROW, len(sgc_db)):
@@ -93,7 +110,6 @@ def GenerateCmdDef(c2a_root_dir, settings, sgc_db):
             )
 
     OutputCmdDefC_(output_file_path + output_file_name_base + ".c", body_c, settings)
-    OutputCmdDefH_(output_file_path + output_file_name_base + ".h", body_h, settings)
 
 
 def GenerateBctDef(c2a_root_dir, settings, bct_db):
