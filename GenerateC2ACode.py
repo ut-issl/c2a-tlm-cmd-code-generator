@@ -28,22 +28,25 @@ SETTING_FILE_PATH = "settings.json"
 def main():
     with open(SETTING_FILE_PATH, mode="r") as fh:
         settings = json.load(fh)
-    # print(settings["c2a_root_dir"]);
 
-    cmd_db = my_mod.load_db.LoadCmdDb(settings)
-    tlm_db = my_mod.load_db.LoadTlmDb(settings)
+    # TODO: this is C2A user 'src' dir. not root.
+    print("c2a_root_dir: " + settings["c2a_root_dir"])
+    c2a_root_dir = settings["c2a_root_dir"]
+
+    cmd_db = my_mod.load_db.LoadCmdDb(c2a_root_dir, settings)
+    tlm_db = my_mod.load_db.LoadTlmDb(c2a_root_dir, settings)
     # pprint.pprint(cmd_db)
     # pprint.pprint(tlm_db)
     # print(tlm_db)
 
-    my_mod.cmd_def.GenerateCmdDef(settings, cmd_db["sgc"])
-    my_mod.cmd_def.GenerateBctDef(settings, cmd_db["bct"])
-    my_mod.tlm_def.GenerateTlmDef(settings, tlm_db["tlm"])
+    my_mod.cmd_def.GenerateCmdDef(c2a_root_dir, settings, cmd_db["sgc"])
+    my_mod.cmd_def.GenerateBctDef(c2a_root_dir, settings, cmd_db["bct"])
+    my_mod.tlm_def.GenerateTlmDef(c2a_root_dir, settings, tlm_db["tlm"])
 
     if settings["is_main_obc"]:
         my_mod.cmd_def.GenerateOtherObcCmdDef(settings, cmd_db["other_obc"])
-        my_mod.tlm_def.GenerateOtherObcTlmDef(settings, tlm_db["other_obc"])
-        my_mod.tlm_buffer.GenerateTlmBuffer(settings, tlm_db["other_obc"])
+        my_mod.tlm_def.GenerateOtherObcTlmDef(c2a_root_dir, settings, tlm_db["other_obc"])
+        my_mod.tlm_buffer.GenerateTlmBuffer(c2a_root_dir, settings, tlm_db["other_obc"])
 
     print("Completed!")
     sys.exit(0)

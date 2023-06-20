@@ -9,7 +9,7 @@ import sys
 # import pprint
 
 
-def GenerateTlmBuffer(settings, other_obc_dbs):
+def GenerateTlmBuffer(c2a_root_dir, settings, other_obc_dbs):
     DATA_START_ROW = 8
 
     for i in range(len(settings["other_obc_data"])):
@@ -337,7 +337,7 @@ def GenerateTlmBuffer(settings, other_obc_dbs):
         body_c += "\n"
 
         output_file_path = (
-            settings["c2a_root_dir"]
+            c2a_root_dir
             + r"src_user/Drivers/"
             + settings["other_obc_data"][i]["driver_path"]
         )
