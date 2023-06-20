@@ -1,5 +1,6 @@
 [flake8]
 max-line-length = 100
+exclude = .venv,dist
 ignore =
     # black と競合するので
     E203,
