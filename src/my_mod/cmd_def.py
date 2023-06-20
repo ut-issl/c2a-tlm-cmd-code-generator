@@ -8,8 +8,8 @@ import sys
 # import pprint
 
 
-def GenerateCmdDef(settings, sgc_db):
-    output_file_path = settings["c2a_root_dir"] + r"src_user/TlmCmd/"
+def GenerateCmdDef(c2a_root_dir, settings, sgc_db):
+    output_file_path = c2a_root_dir + r"src_user/TlmCmd/"
     output_file_name_base = "command_definitions"
 
     DATA_SART_ROW = 3
@@ -96,8 +96,8 @@ def GenerateCmdDef(settings, sgc_db):
     OutputCmdDefH_(output_file_path + output_file_name_base + ".h", body_h, settings)
 
 
-def GenerateBctDef(settings, bct_db):
-    output_file_path = settings["c2a_root_dir"] + r"src_user/TlmCmd/"
+def GenerateBctDef(c2a_root_dir, settings, bct_db):
+    output_file_path = c2a_root_dir + r"src_user/TlmCmd/"
     output_file_name = "block_command_definitions.h"
 
     DATA_SART_ROW = 2
@@ -130,7 +130,7 @@ def GenerateBctDef(settings, bct_db):
     OutputBctDef_(output_file_path + output_file_name, body_h, settings)
 
 
-def GenerateOtherObcCmdDef(settings, other_obc_dbs):
+def GenerateOtherObcCmdDef(c2a_root_dir, settings, other_obc_dbs):
     # pprint.pprint(other_obc_dbs)
     DATA_SART_ROW = 3
     for i in range(len(settings["other_obc_data"])):
@@ -164,7 +164,7 @@ def GenerateOtherObcCmdDef(settings, other_obc_dbs):
             body_h += "  " + cmd_code + " = " + cmd_id + ",\n"
         # print(body_h)
         output_file_path = (
-            settings["c2a_root_dir"]
+            c2a_root_dir
             + r"src_user/Drivers/"
             + settings["other_obc_data"][i]["driver_path"]
             + name_lower

@@ -6,8 +6,8 @@ tlm def
 import sys
 
 
-def GenerateTlmDef(settings, tlm_db):
-    output_file_path = settings["c2a_root_dir"] + r"src_user/TlmCmd/"
+def GenerateTlmDef(c2a_root_dir, settings, tlm_db):
+    output_file_path = c2a_root_dir + r"src_user/TlmCmd/"
     output_file_name_base = "telemetry_definitions"
 
     DATA_START_ROW = 8
@@ -118,7 +118,7 @@ def GenerateTlmDef(settings, tlm_db):
     OutputTlmDefH_(output_file_path + output_file_name_base + ".h", body_h, settings)
 
 
-def GenerateOtherObcTlmDef(settings, other_obc_dbs):
+def GenerateOtherObcTlmDef(c2a_root_dir, settings, other_obc_dbs):
     for i in range(len(settings["other_obc_data"])):
         if not settings["other_obc_data"][i]["is_enable"]:
             continue
@@ -137,7 +137,7 @@ def GenerateOtherObcTlmDef(settings, other_obc_dbs):
                 + ",\n"
             )
         output_file_path = (
-            settings["c2a_root_dir"]
+            c2a_root_dir
             + r"src_user/Drivers/"
             + settings["other_obc_data"][i]["driver_path"]
             + obc_name.lower()
