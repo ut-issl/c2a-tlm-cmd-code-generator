@@ -19,6 +19,9 @@ dev-dependencies = [
     "flake8>=5.0.4",
 ]
 
+[tool.rye.scripts]
+generate = "python GenerateC2ACode.py"
+
 [tool.hatch.metadata]
 allow-direct-references = true
 
