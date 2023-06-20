@@ -10,7 +10,8 @@
 
 ## 実行
 ```
-$ python GenerateC2ACode.py
+$ rye sync
+$ rye run generate
 ```
 
 ## 設定
@@ -93,12 +94,12 @@ $ python GenerateC2ACode.py
 [C2A Core](https://github.com/ut-issl/c2a-core) との互換性などは，[Releases](https://github.com/ut-issl/c2a-tlm-cmd-code-generator/releases) を参照すること（[詳細](https://github.com/ut-issl/c2a-core/tree/develop/Docs/．General/release.md)）
 
 ## 要求
-- python 3.7 以上
-- 必要ライブラリは `./requirements.txt` に記載．
+- [rye](https://rye-up.com/)
+- 必要ライブラリは `./pyproject.toml` の `project.dependencies` に記載．
 	- なお，現在は標準ライブラリのみしか使っていない
 	- 以下で一括インストール可能
 ```
-$ pip install -r requirements.txt
+$ rye sync
 ```
 
 ## その他
