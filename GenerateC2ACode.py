@@ -11,18 +11,8 @@ import my_mod.cmd_def
 import my_mod.tlm_def
 import my_mod.tlm_buffer
 
-
-# import pprint
-# import os.path
-# import msvcrt               # Enter不要な入力用
-# import subprocess
-
-
-# 環境変数
-DEBUG = 0
-# 0 : Release
-# 1 : all
-SETTING_FILE_PATH = "settings.json"
+# 必要に応じてここを変える
+SETTING_FILE_PATH = "../tlm_cmd_gen_config.json"
 
 
 def main():
