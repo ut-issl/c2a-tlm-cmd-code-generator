@@ -12,7 +12,7 @@ import re  # 正規表現
 
 
 def LoadCmdDb(settings):
-    cmd_db_path = settings["path_to_db"] + r"CMD_DB/"
+    cmd_db_path = settings["c2a_root_dir"] + r"data/cmd_db/"
 
     sgc_db, bct_db = LoadCmdCSV_(
         cmd_db_path, settings["db_prefix"], settings["input_file_encoding"]
@@ -44,7 +44,9 @@ def LoadCmdCSV_(cmd_db_path, db_prefix, encoding):
 
 
 def LoadTlmDb(settings):
-    tlm_db_path = settings["path_to_db"] + r"TLM_DB/calced_data/"
+    tlm_db_path = (
+        settings["c2a_root_dir"] + r"data/tlm_db/"
+    )
 
     tlm_db = LoadTlmCSV_(
         tlm_db_path,

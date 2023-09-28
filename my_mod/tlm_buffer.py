@@ -337,8 +337,8 @@ def GenerateTlmBuffer(settings, other_obc_dbs):
         body_c += "\n"
 
         output_file_path = (
-            settings["path_to_src"]
-            + r"src_user/Drivers/"
+            settings["c2a_root_dir"]
+            + r"src/src_user/Drivers/"
             + settings["other_obc_data"][i]["driver_path"]
         )
         OutputTlmBufferC_(
