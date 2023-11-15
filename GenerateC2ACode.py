@@ -5,29 +5,60 @@ python 3.7以上を要求
 
 import json
 import sys
+import argparse
 
 import my_mod.load_db
 import my_mod.cmd_def
 import my_mod.tlm_def
 import my_mod.tlm_buffer
 
-
-# import pprint
-# import os.path
-# import msvcrt               # Enter不要な入力用
-# import subprocess
+# 必要に応じてここを変える
+SETTING_FILE_PATH = "../tlm_cmd_gen_config.json"
 
 
-# 環境変数
-DEBUG = 0
-# 0 : Release
-# 1 : all
-SETTING_FILE_PATH = "settings.json"
+def load_settings(setting_file_path):
+    if setting_file_path.endswith(".json"):
+        with open(setting_file_path, mode="r") as fh:
+            settings = json.load(fh)
+    elif setting_file_path.endswith(".toml"):
+        import toml
+        settings = toml.load(setting_file_path)
+        if "wings" in settings:
+            del settings["wings"]
+        selected_key = select_key(settings)
+        if selected_key is None:
+            raise ValueError("No key selected.")
+        settings = settings[selected_key]["tlm_cmd_code_gen"]
+    else:
+        raise ValueError("Unsupported file format.")
+    return settings
+
+
+def select_key(data):
+    while True:
+        print("Select a key from the following options:")
+        keys = list(data.keys())
+        for i, key in enumerate(keys, start=1):
+            print(f"{i}. {key}")
+        try:
+            choice = int(input("Enter the number of your choice: "))
+            if 1 <= choice <= len(keys):
+                return keys[choice - 1]
+            else:
+                print("Invalid choice. Please select a valid option.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
 
 def main():
-    with open(SETTING_FILE_PATH, mode="r") as fh:
-        settings = json.load(fh)
+    parser = argparse.ArgumentParser(description="Load settings from a configuration file.")
+    parser.add_argument("setting_file_path", nargs="?", default=SETTING_FILE_PATH,
+                        help="Path to the configuration file.")
+    args = parser.parse_args()
+
+    setting_file_path = args.setting_file_path
+    settings = load_settings(setting_file_path)
+
     # print(settings["path_to_src"]);
 
     cmd_db = my_mod.load_db.LoadCmdDb(settings)

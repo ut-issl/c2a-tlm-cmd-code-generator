@@ -8,6 +8,19 @@ import sys
 # from collections import OrderedDict
 # import pprint
 
+INVALID_START_CHARS = [
+    str(0),
+    str(1),
+    str(2),
+    str(3),
+    str(4),
+    str(5),
+    str(6),
+    str(7),
+    str(8),
+    str(9),
+]
+
 
 def GenerateTlmBuffer(settings, other_obc_dbs):
     DATA_START_ROW = 8
@@ -259,6 +272,9 @@ def GenerateTlmBuffer(settings, other_obc_dbs):
 
                 # name_tree = name.lower().split(".")[2:]     # OBC名.テレメ名.HOGE.FUGA を想定
                 name_tree = name.lower().split(".")
+                for idx, item in enumerate(name_tree):
+                    if item[0] in INVALID_START_CHARS:
+                        name_tree[idx] = "_" + item
                 name_path = ".".join(name_tree)
                 var_name = driver_name + "->tlm_data." + tlm_name_lower + "." + name_path
                 if is_compression:
@@ -493,6 +509,8 @@ def SetStructTree_(dict, path, val, sep="/"):
             return 1  # err
         if len(path_list) == 1:
             key = path_list[0]
+            if key[0] in INVALID_START_CHARS:
+                key = "_" + key
             if key in dict:
                 return 1  # 上書きエラー
             else:
@@ -500,6 +518,8 @@ def SetStructTree_(dict, path, val, sep="/"):
                 return 0
         else:
             key = path_list[0]
+            if key[0] in INVALID_START_CHARS:
+                key = "_" + key
             if key not in dict:
                 dict[key] = {}
             return _(dict[key], path_list[1:], val, sep)
